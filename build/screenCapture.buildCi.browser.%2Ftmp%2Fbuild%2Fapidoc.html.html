@@ -1,0 +1,164 @@
+<html><head></head><body><div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a href="https://github.com/node-webot/wechat-oauth#readme">wechat-oauth (v1.2.1)</a>
+</h1>
+<h4>å¾®ä¿¡å…¬å…±å¹³å°OAuth</h4>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.wechat-oauth">module wechat-oauth</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.wechat-oauth.wechat-oauth">
+            function <span class="apidocSignatureSpan"></span>wechat-oauth
+            <span class="apidocSignatureSpan">(appid, appsecret, getToken, saveToken)</span>
+            </a>
+
+        </li>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">wechat-oauth.</span>util</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.wechat-oauth.util">module wechat-oauth.util</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.wechat-oauth.util.wrapper">
+            function <span class="apidocSignatureSpan">wechat-oauth.util.</span>wrapper
+            <span class="apidocSignatureSpan">(callback)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.wechat-oauth" id="apidoc.module.wechat-oauth">module wechat-oauth</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.wechat-oauth.wechat-oauth" id="apidoc.element.wechat-oauth.wechat-oauth">
+        function <span class="apidocSignatureSpan"></span>wechat-oauth
+        <span class="apidocSignatureSpan">(appid, appsecret, getToken, saveToken)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">wechat-oauth = function (appid, appsecret, getToken, saveToken) {
+  this.appid = appid;
+  this.appsecret = appsecret;
+  // tokençš„èŽ·å–å’Œå­˜å‚¨
+  this.store = {};
+  this.getToken = getToken || function (openid, callback) {
+    callback(null, this.store[openid]);
+  };
+  if (!saveToken &amp;&amp; process.env.NODE_ENV === 'production') {
+    console.warn('Please dont save oauth token into memory under production');
+  }
+  this.saveToken = saveToken || function (openid, token, callback) {
+    this.store[openid] = token;
+    callback(null);
+  };
+  this.defaults = {};
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.wechat-oauth.util" id="apidoc.module.wechat-oauth.util">module wechat-oauth.util</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.wechat-oauth.util.wrapper" id="apidoc.element.wechat-oauth.util.wrapper">
+        function <span class="apidocSignatureSpan">wechat-oauth.util.</span>wrapper
+        <span class="apidocSignatureSpan">(callback)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">wrapper = function (callback) {
+  return function (err, data, res) {
+    callback = callback || function () {};
+    if (err) {
+      err.name = 'WeChatAPI' + err.name;
+      return callback(err, data, res);
+    }
+    if (data.errcode) {
+      err = new Error(data.errmsg);
+      err.name = 'WeChatAPIError';
+      err.code = data.errcode;
+      return callback(err, data, res);
+    }
+    callback(null, data, res);
+  };
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
+</body></html>
